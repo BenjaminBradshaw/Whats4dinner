@@ -1,3 +1,5 @@
 import steamlit as st
 
-st.title("Whats fordinner")
+st.title("Whats for dinner")
+
+st.subheader('Menu')
