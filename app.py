@@ -13,7 +13,6 @@ with st.form("my_form"):
    st.form_submit_button('Submit my picks')
 
 # This is outside the form
-
 st.write(my_name)
 st.write(my_starter)                           
 st.write(my_main)
