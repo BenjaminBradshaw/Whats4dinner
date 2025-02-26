@@ -1,1 +1,4 @@
-steamlit
+streamlit
+pandas
+numpy
+web-browser
