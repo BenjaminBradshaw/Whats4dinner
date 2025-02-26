@@ -6,7 +6,7 @@ import ui
 import webbrowser
 
 st.set_page_config(
-    page_title="Streamlit Cloud Example Apps",
+    page_title="Whats 4 dinner",
     page_icon="https://streamlit.io/favicon.svg",
 )
 
@@ -115,10 +115,9 @@ def navbar():
     )
 
 st.image("https://streamlit.io/images/brand/streamlit-mark-color.png", width=100)
-st.title("Streamlit Cloud Example Apps")
+st.title("Whats for dinner?")
 st.write(
-    "🚀 To deploy an app with your own [Streamlit Cloud](https://share.streamlit.io/) account,"
-    " click 'View App Repo'"
+    "what would you like for dinner"
 )
 st.write("🤔 Stuck? Check out our [docs on deploying apps](https://docs.streamlit.io/en/stable/deploy_streamlit_app.html) or reach out to support@streamlit.io")
 st.write("ℹ️ Check out more information on [forking](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and [cloning](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) GitHub repositories!")
