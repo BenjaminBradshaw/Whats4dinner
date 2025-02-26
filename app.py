@@ -9,7 +9,7 @@ with st.form("my_form"):
    my_name = st.text_input("Your name")
    my_starter = st.selectbox("Pick a starter", ["calamari","grilled cabbage"])
    my_main = st.selectbox('Pick a main', ['fish','beef', 'pork','calamari'])
-   my_dessert = st.selectbox('Pick a dessert', ["tiramisu","ice cream"]
+   my_dessert = st.selectbox('Pick a dessert', ["tiramisu","ice cream"])
    st.form_submit_button('Submit my picks')
 
 # This is outside the form
