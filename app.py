@@ -1,17 +1,18 @@
 import streamlit as st
 import pyodbc
+import os
 
 @st.cache_resource
 def init_connection():
     return pyodbc.connect(
         "DRIVER={ODBC Driver 17 for SQL Server};SERVER="
-        + st.secrets["AZURE_SQL_SERVER"]
+        + os.getenv("AZURE_SQL_SERVER")
         + ";DATABASE="
-        + st.secrets["AZURE_SQL_DATABASE"]
+        + os.getenv("AZURE_SQL_DATABASE")
         + ";UID="
-        + st.secrets["AZURE_SQL_USER"]
+        + os.getenv("AZURE_SQL_USER")
         + ";PWD="
-        + st.secrets["AZURE_SQL_PASSWORD"]
+        + os.getenv("AZURE_SQL_PASSWORD")
     )
 
 conn = init_connection()
