@@ -1,4 +1,5 @@
 import streamlit as st
+import pyodbc
 
 @st.cache_resource
 def init_connection():
