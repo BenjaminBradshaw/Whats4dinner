@@ -18,6 +18,12 @@ def init_connection():
 conn = init_connection()
 
 
+@st.cache_data(ttl=600)
+def run_query(query):
+    with conn.cursor() as cur:
+        cur.execute(query)
+        return cur.fetchall()
+
 
 st.title("Whats for dinner")
 
@@ -36,4 +42,11 @@ st.write(my_name)
 st.write(my_starter)                           
 st.write(my_main)
 st.write(my_dessert)
+
+
+rows = run_query("SELECT * FROM [dbo].[Menu];")
+
+# Print results.
+for row in rows:
+    st.write(f"{row[0]} has a :{row[1]}:")
                              
