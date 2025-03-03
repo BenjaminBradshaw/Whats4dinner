@@ -1,6 +1,7 @@
 CREATE TABLE [dbo].[Menu] (
     [Id] INT IDENTITY (1, 1) NOT NULL,
     [Name] VARCHAR (25) NULL,
+	[Course]  VARCHAR (25) NULL,
     [Description] VARCHAR (250) NULL,
     [GF] Bit,
     [DF] Bit,
