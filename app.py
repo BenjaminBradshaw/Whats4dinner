@@ -1,5 +1,22 @@
 import streamlit as st
 
+@st.cache_resource
+def init_connection():
+    return pyodbc.connect(
+        "DRIVER={ODBC Driver 17 for SQL Server};SERVER="
+        + st.secrets["AZURE_SQL_SERVER"]
+        + ";DATABASE="
+        + st.secrets["AZURE_SQL_DATABASE"]
+        + ";UID="
+        + st.secrets["AZURE_SQL_USER"]
+        + ";PWD="
+        + st.secrets["AZURE_SQL_PASSWORD"]
+    )
+
+conn = init_connection()
+
+
+
 st.title("Whats for dinner")
 
 st.subheader('Menu')
