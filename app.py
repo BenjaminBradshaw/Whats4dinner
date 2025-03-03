@@ -46,6 +46,7 @@ st.write(my_dessert)
 
 rows = run_query("SELECT * FROM [dbo].[Menu];")
 
+st.write(rows)
 # Print results.
 for row in rows:
     st.write(f"{row[0]} has a :{row[1]}:")
