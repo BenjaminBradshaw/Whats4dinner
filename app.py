@@ -2,6 +2,9 @@ import streamlit as st
 import pyodbc
 import os
 
+if "role" not in st.session_state:
+    st.session_state.role = None
+
 @st.cache_resource
 def init_connection():
     return pyodbc.connect(
