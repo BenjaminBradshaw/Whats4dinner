@@ -3,3 +3,4 @@ pandas
 numpy
 web-browser
 pyodbc
+sqlalchemy
