@@ -60,11 +60,9 @@ def pick():
     st.write(my_dessert)
     
     
-    rows = run_query("SELECT * FROM [dbo].[Menu];")
+   # rows = run_query("SELECT * FROM [dbo].[Menu];")
     
-    st.write(pd.DataFrame(rows))
-    # Print results.
-    st.rerun()
+
 
 
 role = st.session_state.role
