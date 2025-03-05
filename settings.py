@@ -35,7 +35,7 @@ edited_df = st.data_editor(df)
 
 if st.button("submit change"):
     out= edited_df.to_sql( "Menu", conn, if_exists="replace", index=False)
-    st.write( {out}" rows changed")
+    st.write( f"{out} rows changed")
 
 if st.button("pull):
     st.write(pd.read_sql("SELECT * FROM [dbo].[Menu];", conn))
