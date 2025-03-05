@@ -1,6 +1,7 @@
 import streamlit as st
 import pyodbc
 import os
+import pandas as pd
 
 ROLES = [None, "Waiter", "Admin"]
 
@@ -61,10 +62,8 @@ def pick():
     
     rows = run_query("SELECT * FROM [dbo].[Menu];")
     
-    st.write(rows)
+    st.write(pd.DataFrame(rows))
     # Print results.
-    for row in rows:
-        st.write(f"{row[0]} has a :{row[1]}:")
     st.rerun()
 
 
