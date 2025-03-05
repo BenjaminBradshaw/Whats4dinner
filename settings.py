@@ -2,21 +2,37 @@ import streamlit as st
 import pandas as pd
 import pyodbc
 import os
-
+from sqlalchemy import create_engine
+from sqlalchemy.exc import SQLAlchemyError
 
 def init_connection():
-    return pyodbc.connect(
-        "DRIVER={ODBC Driver 17 for SQL Server};SERVER="
-        + os.getenv("AZURE_SQL_SERVER")
-        + ";DATABASE="
-        + os.getenv("AZURE_SQL_DATABASE")
-        + ";UID="
-        + os.getenv("AZURE_SQL_USER")
-        + ";PWD="
-        + os.getenv("AZURE_SQL_PASSWORD")
-    )
+    try:
+        # Building the connection string for SQLAlchemy
+        connection_string = (
+            f"mssql+pyodbc://{os.getenv('AZURE_SQL_USER')}:{os.getenv('AZURE_SQL_PASSWORD')}"
+            f"@{os.getenv('AZURE_SQL_SERVER')}/{os.getenv('AZURE_SQL_DATABASE')}"
+            f"?driver=ODBC+Driver+17+for+SQL+Server"
+        )
 
+        # Creating the SQLAlchemy engine
+        engine = create_engine(connection_string)
+
+        # Establishing the connection
+        conn = engine.connect()
+        print("Connection established successfully.")
+        return conn
+    except SQLAlchemyError as e:
+        print("Error while connecting to the database:", e)
+        return None
+
+# Establish connection
 conn = init_connection()
+
+# Don't forget to close the connection when done
+if conn:
+    conn.close()
+    print("Connection closed.")
+
 
 
 
