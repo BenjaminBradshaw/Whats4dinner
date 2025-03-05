@@ -18,10 +18,7 @@ def init_connection():
 
 conn = init_connection()
 
-def run_query(query):
-    with conn.cursor() as cur:
-        cur.execute(query)
-        return cur.fetchall()
+
 
 st.header("Settings")
 
@@ -30,11 +27,11 @@ st.write(f"You are logged in as {st.session_state.role}.")
 
 
 
-rows = run_query("SELECT * FROM [dbo].[Menu];")
+df = pd.read_sql("SELECT * FROM [dbo].[Menu];", conn)
 
-st.write(pd.DataFrame(rows))
+st.write(df)
 
-edited_df = st.data_editor(rows)
+edited_df = st.data_editor(df)
 
 
 
