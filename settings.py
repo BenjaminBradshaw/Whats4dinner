@@ -28,13 +28,6 @@ def init_connection():
 # Establish connection
 conn = init_connection()
 
-# Don't forget to close the connection when done
-if conn:
-    conn.close()
-    print("Connection closed.")
-
-
-
 
 st.header("Settings")
 
@@ -55,6 +48,14 @@ if st.button("submit change"):
 
 if st.button("pull"):
     st.write(pd.read_sql("SELECT * FROM [dbo].[Menu];", conn))
+
+
+# Don't forget to close the connection when done
+
+if st.button("close"):
+    if conn :
+        conn.close()
+        st.write("Connection closed.")
 
 
 
