@@ -40,9 +40,10 @@ df = pd.read_sql("SELECT * FROM [dbo].[Menu];", conn)
 
 
 
-edited_df = st.data_editor(df)
+edited_df = st.data_editor(df, num_rows="dynamic")
 
 if st.button("submit change"):
+    st.write("updating....")
     out= edited_df.to_sql( "Menu", con = engine, method=None, schema = "dbo", if_exists="replace", index=False)
     st.write( f"{out} rows changed")
 
