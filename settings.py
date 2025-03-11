@@ -20,13 +20,13 @@ def init_connection():
         # Establishing the connection
         conn = engine.connect()
         print("Connection established successfully.")
-        return engine
+        return conn, engine
     except SQLAlchemyError as e:
         print("Error while connecting to the database:", e)
-        return None
+        return None, None
 
 # Establish connection
-conn = init_connection()
+conn, engine = init_connection()
 
 
 st.header("Settings")
@@ -43,7 +43,7 @@ df = pd.read_sql("SELECT * FROM [dbo].[Menu];", conn)
 edited_df = st.data_editor(df)
 
 if st.button("submit change"):
-    out= edited_df.to_sql( "Menu", con = conn, method=None, schema = "dbo", if_exists="replace", index=False)
+    out= edited_df.to_sql( "Menu", con = engine, method=None, schema = "dbo", if_exists="replace", index=False)
     st.write( f"{out} rows changed")
 
 if st.button("pull"):
