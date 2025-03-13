@@ -8,6 +8,10 @@ ROLES = [None, "Waiter", "Admin"]
 if "role" not in st.session_state:
     st.session_state.role = None
 
+if st.query_params:
+    hash=st.query_params["id"]
+    st.write(hash)
+
 @st.cache_resource
 def init_connection():
     return pyodbc.connect(
