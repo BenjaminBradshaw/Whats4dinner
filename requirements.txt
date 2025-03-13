@@ -4,3 +4,4 @@ numpy
 web-browser
 pyodbc
 sqlalchemy
+basehash
