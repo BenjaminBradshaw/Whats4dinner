@@ -50,7 +50,7 @@ edited_df = st.data_editor(df, column_config={
             ],
             required=True,
         )
-    } num_rows="dynamic")
+    }, num_rows="dynamic")
 
 if st.button("submit change"):
     st.write("updating....")
