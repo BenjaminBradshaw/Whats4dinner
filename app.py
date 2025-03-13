@@ -2,6 +2,9 @@ import streamlit as st
 import pyodbc
 import os
 import pandas as pd
+import basehash
+
+hash_fn = basehash.base36() 
 
 ROLES = [None, "Waiter", "Admin"]
 
@@ -10,7 +13,8 @@ if "role" not in st.session_state:
 
 if st.query_params:
     hash=st.query_params["id"]
-    st.write(hash)
+    unhashed = hash_fn.unhash(hash) 
+    st.write(unhashed)
 
 @st.cache_resource
 def init_connection():
