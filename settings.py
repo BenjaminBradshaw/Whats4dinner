@@ -34,8 +34,6 @@ st.header("Settings")
 
 st.write(f"You are logged in as {st.session_state.role}.")
 
-def valadate(dataframe):
-    
 
 df = pd.read_sql("SELECT * FROM [dbo].[Menu];", conn)
 
