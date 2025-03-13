@@ -40,7 +40,17 @@ df = pd.read_sql("SELECT * FROM [dbo].[Menu];", conn)
 
 
 
-edited_df = st.data_editor(df, num_rows="dynamic")
+edited_df = st.data_editor(df, column_config={
+        "Course": st.column_config.SelectboxColumn(
+            width="medium",
+            options=[
+                "Starter",
+                "Main",
+                "Dessert",
+            ],
+            required=True,
+        )
+    } num_rows="dynamic")
 
 if st.button("submit change"):
     st.write("updating....")
