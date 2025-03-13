@@ -60,7 +60,7 @@ if st.button("submit change"):
         out= edited_df.to_sql( "Menu", con = engine, method=None, schema = "dbo", if_exists="replace", index=False)
         st.write( f"{out} rows changed")
     else:
-        st.write("index not unique!)"
+        st.write("index not unique!")
     
 
 if st.button("pull"):
