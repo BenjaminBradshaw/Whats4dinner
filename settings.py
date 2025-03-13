@@ -41,6 +41,8 @@ df = pd.read_sql("SELECT * FROM [dbo].[Menu];", conn)
 
 
 edited_df = st.data_editor(df, column_config={
+        "Id": st.column_config.NumberColumn(
+        default=max(df["id"])+1),
         "Course": st.column_config.SelectboxColumn(
             width="medium",
             options=[
