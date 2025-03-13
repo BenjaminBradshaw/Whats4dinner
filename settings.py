@@ -34,7 +34,8 @@ st.header("Settings")
 
 st.write(f"You are logged in as {st.session_state.role}.")
 
-
+def valadate(dataframe):
+    
 
 df = pd.read_sql("SELECT * FROM [dbo].[Menu];", conn)
 
@@ -55,9 +56,14 @@ edited_df = st.data_editor(df, column_config={
     }, num_rows="dynamic")
 
 if st.button("submit change"):
-    st.write("updating....")
-    out= edited_df.to_sql( "Menu", con = engine, method=None, schema = "dbo", if_exists="replace", index=False)
-    st.write( f"{out} rows changed")
+    if edited_df["Id"].is_unique:
+        st.write("index validated")
+        st.write("updating....")
+        out= edited_df.to_sql( "Menu", con = engine, method=None, schema = "dbo", if_exists="replace", index=False)
+        st.write( f"{out} rows changed")
+    else:
+        st.write("index not unique!)"
+    
 
 if st.button("pull"):
     st.write(pd.read_sql("SELECT * FROM [dbo].[Menu];", conn))
