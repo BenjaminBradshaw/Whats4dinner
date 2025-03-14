@@ -93,7 +93,7 @@ pick_page = st.Page(pick, title="Whats for dinner")
 menu_page =st.Page("menu_builder.py", title = "Menu builder", icon=":material/menu_open:")
 
 
-admin_pages = [admin, settings, menu_page]
+admin_pages = [admin, settings]
 waiter_pages =[waiter_page, menu_page]
 account_pages = [logout_page]
 
