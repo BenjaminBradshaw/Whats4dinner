@@ -83,12 +83,18 @@ admin = st.Page(
     icon=":material/person_add:",
     default=(role == "Admin"),
 )
+waiter_page = st.Page(
+    "waiter/waiter.py",
+    title="waiter",
+    default =(role== "Waiter"),
+)
+     
 pick_page = st.Page(pick, title="Whats for dinner")
 menu_page =st.Page("menu_builder.py", title = "Menu builder", icon=":material/menu_open:")
 
 
 admin_pages = [admin,menu_page]
-waiter_pages =[menu_page]
+waiter_pages =[waiter_page, menu_page]
 account_pages = [logout_page, settings]
 
 page_dict = {}
