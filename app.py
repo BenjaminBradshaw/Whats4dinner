@@ -15,10 +15,10 @@ ROLES = [None, "Waiter", "Admin"]
 if "role" not in st.session_state:
     st.session_state.role = None
 
-if st.query_params:
-    hash=st.query_params["id"]
-    unhashed = hash_fn.unhash(hash) 
-    st.write(unhashed)
+#if st.query_params:
+#    hash=st.query_params["id"]
+#    unhashed = hash_fn.unhash(hash) 
+#    st.write(unhashed)
 
 def init_connection():
     try:
