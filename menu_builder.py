@@ -7,8 +7,11 @@ from sqlalchemy.exc import SQLAlchemyError
 import basehash
 import json
 import base64
+import datetime
+from dateutil.relativedelta import relativedelta
+from urllib.parse import urlencode
 
-
+base_url = os.getenv("BASE_URL")
 def init_connection():
     try:
         # Building the connection string for SQLAlchemy
@@ -36,6 +39,10 @@ def encode_int_list(int_list):
     encoded = base64.urlsafe_b64encode(json_str.encode()).decode()
     return encoded
 
+today = datetime.date.today()
+two_months_later = today + relativedelta(months=2)
+
+
 
 
 # Establish connection
@@ -47,10 +54,15 @@ st.header("Menu picker")
 
 st.write(f"You are logged in as {st.session_state.role}.")
 
+selected_date = st.date_input(
+    "Select a date",
+    value=today,
+    min_value=today,
+    max_value=two_months_later,
+    format="YYYY-MM-DD"
+)
 
 df = pd.read_sql("SELECT * FROM [dbo].[Menu] WHERE IsActive = 1;", conn)
-
-
 
 
 event = st.dataframe(
@@ -72,6 +84,12 @@ if st.button("generate link change"):
     selected_indices = event.selection.rows
     encoded = encode_int_list([1,2,3])
     st.write(encoded)
+    current_params={"date:selected_date,data:encoded)
+    query_string = urlencode(current_params)
+    full_url = f"{base_url}?{query_string}" if query_string else base_url
+
+    # Display the URL in a text box
+    st.text_input("URL with query parameters:", value=full_url, disabled=True)
 
     
 
