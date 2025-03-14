@@ -48,7 +48,7 @@ st.header("Menu picker")
 st.write(f"You are logged in as {st.session_state.role}.")
 
 
-df = pd.read_sql("SELECT * FROM [dbo].[Menu];", conn)
+df = pd.read_sql("SELECT * FROM [dbo].[Menu] WHERE IsActive = 1;", conn)
 
 
 
@@ -61,9 +61,11 @@ event = st.dataframe(
 )
 
 # Get the selected columns
-
 selected_indices = event.selection.rows
 
+#selected id
+Selected_id= df.loc[selected_indices].Id.to_list()
+st.write(Selected_id)
 
 
 if st.button("generate link change"):
