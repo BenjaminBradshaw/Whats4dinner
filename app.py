@@ -40,12 +40,14 @@ def init_connection():
         print("Error while connecting to the database:", e)
         return None, None
 
-def encode_int_list(int_list):
-    # Convert the list to JSON string
-    json_str = json.dumps(int_list)
-    # Encode to base64 (URL-safe)
-    encoded = base64.urlsafe_b64encode(json_str.encode()).decode()
-    return encoded
+def decode_int_list(encoded_str):
+    try:
+        # Decode from base64
+        json_str = base64.urlsafe_b64decode(encoded_str.encode()).decode()
+        # Convert JSON string back to list
+        return json.loads(json_str)
+    except:
+        return []
 
 #pages
 def login():
