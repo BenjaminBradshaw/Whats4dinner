@@ -3,6 +3,8 @@ import pyodbc
 import os
 import pandas as pd
 import basehash
+import json
+import base64
 
 hash_fn = basehash.base36() 
 
@@ -16,27 +18,27 @@ if st.query_params:
     unhashed = hash_fn.unhash(hash) 
     st.write(unhashed)
 
-@st.cache_resource
 def init_connection():
-    return pyodbc.connect(
-        "DRIVER={ODBC Driver 17 for SQL Server};SERVER="
-        + os.getenv("AZURE_SQL_SERVER")
-        + ";DATABASE="
-        + os.getenv("AZURE_SQL_DATABASE")
-        + ";UID="
-        + os.getenv("AZURE_SQL_USER")
-        + ";PWD="
-        + os.getenv("AZURE_SQL_PASSWORD")
-    )
+    try:
+        # Building the connection string for SQLAlchemy
+        connection_string = (
+            f"mssql+pyodbc://{os.getenv('AZURE_SQL_USER')}:{os.getenv('AZURE_SQL_PASSWORD')}"
+            f"@{os.getenv('AZURE_SQL_SERVER')}/{os.getenv('AZURE_SQL_DATABASE')}"
+            f"?driver=ODBC+Driver+17+for+SQL+Server"
+        )
 
-conn = init_connection()
+        # Creating the SQLAlchemy engine
+        engine = create_engine(connection_string)
+
+        # Establishing the connection
+        conn = engine.connect()
+        print("Connection established successfully.")
+        return conn, engine
+    except SQLAlchemyError as e:
+        print("Error while connecting to the database:", e)
+        return None, None
 
 
-@st.cache_data(ttl=600)
-def run_query(query):
-    with conn.cursor() as cur:
-        cur.execute(query)
-        return cur.fetchall()
 
 #pages
 def login():
@@ -52,6 +54,20 @@ def logout():
 
 def pick():
     st.subheader('Menu')
+
+
+    if "data" in st.query_params:
+        # Get and decode the data
+        encoded_data = st.query_params["data"]
+        decoded_list = decode_int_list(encoded_data)
+        
+        st.write("Received data:", decoded_list)
+    else:
+        st.write("No data received in URL parameters")
+   
+    whole_menu= pd.read_sql("SELECT * FROM [dbo].[Menu];", conn)
+
+    #selected_menu= whole_menu[decoded_list]
     
     with st.form("my_form"):
        st.write("dinner options")
@@ -66,11 +82,15 @@ def pick():
     st.write(my_starter)                           
     st.write(my_main)
     st.write(my_dessert)
+
+
+
     
     
    # rows = run_query("SELECT * FROM [dbo].[Menu];")
     
-
+# Establish connection
+conn, engine = init_connection()
 
 
 role = st.session_state.role
@@ -81,13 +101,12 @@ admin = st.Page(
     "admin/admin.py",
     title="Admin page",
     icon=":material/person_add:",
-    default=(role == "Admin")
-)
+    default=(role == "Admin"))
+
 waiter_page = st.Page(
     "waiter/waiter.py",
     title="Waiter",
-    default =(role== "Waiter")
-)
+    default =(role== "Waiter"))
      
 pick_page = st.Page(pick, title="Whats for dinner")
 menu_page =st.Page("menu_builder.py", title = "Menu builder", icon=":material/menu_open:")
