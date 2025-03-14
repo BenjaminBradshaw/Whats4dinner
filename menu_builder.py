@@ -5,6 +5,8 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.exc import SQLAlchemyError
 import basehash
+import json
+import base64
 
 
 def init_connection():
@@ -27,6 +29,15 @@ def init_connection():
         print("Error while connecting to the database:", e)
         return None, None
 
+def encode_int_list(int_list):
+    # Convert the list to JSON string
+    json_str = json.dumps(int_list)
+    # Encode to base64 (URL-safe)
+    encoded = base64.urlsafe_b64encode(json_str.encode()).decode()
+    return encoded
+
+
+
 # Establish connection
 conn, engine = init_connection()
 
@@ -39,12 +50,26 @@ st.write(f"You are logged in as {st.session_state.role}.")
 
 df = pd.read_sql("SELECT * FROM [dbo].[Menu];", conn)
 
-hash_fn = basehash.base36()  # you can initialize a 36, 52, 56, 58, 62 and 94 base fn
+
+
+
+event = st.dataframe(
+    df,
+    key="data",
+    on_select="rerun",
+    selection_mode=["multi-row"],
+)
+
+# Get the selected columns
+
+selected_indices = event.selection.rows
+
 
 
 if st.button("generate link change"):
-  hash_value = hash_fn.hash([1,2,3])
-  st.write(hash_value)
+selected_indices = event.selection.rows
+  encoded = encode_int_list([1,2,3])
+  st.write(encoded)
 
     
 
