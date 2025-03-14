@@ -54,6 +54,8 @@ st.header("Menu picker")
 
 st.write(f"You are logged in as {st.session_state.role}.")
 
+st.write("select a date for the dinner")
+
 selected_date = st.date_input(
     "Select a date",
     value=today,
@@ -62,6 +64,8 @@ selected_date = st.date_input(
     format="YYYY-MM-DD"
 )
 
+
+St.write("select menu items")
 df = pd.read_sql("SELECT * FROM [dbo].[Menu] WHERE IsActive = 1;", conn)
 
 
@@ -70,6 +74,7 @@ event = st.dataframe(
     key="data",
     on_select="rerun",
     selection_mode=["multi-row"],
+    hide_index=True
 )
 
 # Get the selected columns
