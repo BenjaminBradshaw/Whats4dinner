@@ -43,7 +43,7 @@ hash_fn = basehash.base36()  # you can initialize a 36, 52, 56, 58, 62 and 94 ba
 
 
 if st.button("generate link change"):
-  hash_value = hash_fn.hash(1)
+  hash_value = hash_fn.hash([1,2,3])
   st.write(hash_value)
 
     
