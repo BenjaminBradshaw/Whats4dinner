@@ -81,12 +81,12 @@ admin = st.Page(
     "admin/admin.py",
     title="Admin page",
     icon=":material/person_add:",
-    default=(role == "Admin"),
+    default=(role == "Admin")
 )
 waiter_page = st.Page(
     "waiter/waiter.py",
-    title="waiter",
-    default =(role== "Waiter"),
+    title="Waiter",
+    default =(role== "Waiter")
 )
      
 pick_page = st.Page(pick, title="Whats for dinner")
@@ -102,7 +102,7 @@ if st.session_state.role == "Admin":
     page_dict["Admin"] = admin_pages
 
 if st.session_state.role == "Waiter":
-    page_dict["Waiter"] = waiter_pages
+    page_dict["Admin"] = waiter_pages
 
 if len(page_dict) > 0:
     pg = st.navigation({"Account": account_pages} | page_dict)
