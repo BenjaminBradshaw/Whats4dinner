@@ -67,9 +67,9 @@ selected_indices = event.selection.rows
 
 
 if st.button("generate link change"):
-selected_indices = event.selection.rows
-  encoded = encode_int_list([1,2,3])
-  st.write(encoded)
+    selected_indices = event.selection.rows
+    encoded = encode_int_list([1,2,3])
+    st.write(encoded)
 
     
 
