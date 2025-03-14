@@ -5,3 +5,4 @@ web-browser
 pyodbc
 sqlalchemy
 basehash
+reportlab
