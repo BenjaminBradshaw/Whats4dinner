@@ -93,9 +93,9 @@ pick_page = st.Page(pick, title="Whats for dinner")
 menu_page =st.Page("menu_builder.py", title = "Menu builder", icon=":material/menu_open:")
 
 
-admin_pages = [admin,menu_page]
+admin_pages = [admin, settings, menu_page]
 waiter_pages =[waiter_page, menu_page]
-account_pages = [logout_page, settings]
+account_pages = [logout_page]
 
 page_dict = {}
 if st.session_state.role == "Admin":
