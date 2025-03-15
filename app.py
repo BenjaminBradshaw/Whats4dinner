@@ -71,13 +71,14 @@ def pick():
         decoded_list = decode_int_list(encoded_data)
         
         st.write("Received data:", decoded_list)
+        whole_menu= pd.read_sql("SELECT * FROM [dbo].[Menu];", conn)
+        if len(decoded_list) > 0:
+            selected_menu= whole_menu[whole_menu["id"] in decoded_list]
+            st.dataframe(selected_menu)
     else:
         st.write("No data received in URL parameters")
    
-    whole_menu= pd.read_sql("SELECT * FROM [dbo].[Menu];", conn)
-    if decoded_list:
-        selected_menu= whole_menu[whole_menu["id"] in decoded_list]
-        st.dataframe(selected_menu)
+
     
     with st.form("my_form"):
        st.write("dinner options")
