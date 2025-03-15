@@ -65,7 +65,7 @@ selected_date = st.date_input(
 )
 
 
-St.write("select menu items")
+st.write("select menu items")
 df = pd.read_sql("SELECT * FROM [dbo].[Menu] WHERE IsActive = 1;", conn)
 
 
