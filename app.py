@@ -75,8 +75,9 @@ def pick():
         st.write("No data received in URL parameters")
    
     whole_menu= pd.read_sql("SELECT * FROM [dbo].[Menu];", conn)
-
-    #selected_menu= whole_menu[decoded_list]
+    if decoded_list:
+        selected_menu= whole_menu[whole_menu["id"] in decoded_list]
+        st.dataframe(selected_menu)
     
     with st.form("my_form"):
        st.write("dinner options")
