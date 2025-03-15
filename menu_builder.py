@@ -86,8 +86,7 @@ st.write(Selected_id)
 
 
 if st.button("generate link change"):
-    selected_indices = event.selection.rows
-    encoded = encode_int_list([1,2,3])
+    encoded = encode_int_list(Selected_id)
     st.write(encoded)
     current_params={"date":selected_date,"data":encoded}
     query_string = urlencode(current_params)
