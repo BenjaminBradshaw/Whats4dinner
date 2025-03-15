@@ -89,7 +89,7 @@ if st.button("generate link change"):
     selected_indices = event.selection.rows
     encoded = encode_int_list([1,2,3])
     st.write(encoded)
-    current_params={"date":selected_date,"data":encoded)
+    current_params={"date":selected_date,"data":encoded}
     query_string = urlencode(current_params)
     full_url = f"{base_url}?{query_string}" if query_string else base_url
 
